@@ -1,2 +1,8 @@
 ---
-# defaults file for eudaq
+# defaults file for ansible-role-eudaq
+
+eudaq_repository: "https://github.com/eudaq/eudaq.git"
+eudaq_branch: v2.4.3
+
+eudaq_build_folder: /opt/ModSecurity
+eudaq_install_folder: /opt/ModSecurity
