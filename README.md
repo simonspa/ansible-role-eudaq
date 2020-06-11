@@ -1,7 +1,7 @@
-Role Name
+Ansible Role for EUDAQ2
 =========
 
-A brief description of the role goes here.
+This role installs and deploys EUEDAQ2 through Ansible
 
 Requirements
 ------------
