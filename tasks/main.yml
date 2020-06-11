@@ -27,16 +27,20 @@
 - name: Configure EUDAQ2 build
   shell: "{{ item }}"
   args:
-    chdir: "{{ eudaq_build_folder }}"
+    chdir: "{{ eudaq_build_folder }}/build"
   with_items:
-    - ./build.sh
-    - ./configure
+    - cmake -DEUDAQ_INSTALL_PREFIX="{{ eudaq_install_folder }}" ..
 
-
-- name: Build and install EUDAQ2
+- name: Build EUDAQ2
   shell: "{{ item }}"
   args:
-    chdir: "{{ eudaq_build_folder }}"
+    chdir: "{{ eudaq_build_folder }}/build"
   with_items:
     - make -j{{ ansible_processor_vcpus|default(ansible_processor_count) }}
+
+- name: Install EUDAQ2
+  shell: "{{ item }}"
+  args:
+    chdir: "{{ eudaq_build_folder }}/build"
+  with_items:
     - make install
