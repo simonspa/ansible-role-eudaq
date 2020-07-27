@@ -1,10 +1,19 @@
 ---
 
+
+- include_tasks: components/tlu_aida.yml
+  when:
+    eudaq_build_tlu_aida
+
+- include_tasks: components/tlu_eudet.yml
+  when:
+    eudaq_build_tlu_eudet
+
 - name: Component TLU
   set_fact:
-    eudaq_cmake_options: "{{ eudaq_cmake_options|default() }} -DUSER_TLU_BUILD=ON"
+    eudaq_cmake_options: "{{ eudaq_cmake_options|default() }} -DUSER_TLU_BUILD=ON  -DUSER_TLU_BUILD_AIDA={{ 'ON' if eudaq_build_tlu_aida else 'OFF'}} -DUSER_TLU_BUILD_EUDET={{ 'ON' if eudaq_build_tlu_eudet else 'OFF'}}"
   when:
-    eudaq_build_tlu
+    eudaq_build_tlu_aida or eudaq_build_tlu_eudet
 
 - name: Component EUDET
   set_fact:

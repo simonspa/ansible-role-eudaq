@@ -15,7 +15,9 @@ eudaq_build_stdevent_monitor: true
 
 # Additional features / producers
 
-eudaq_build_tlu: true
+eudaq_build_tlu_aida: true
+eudaq_build_tlu_eudet: true
+
 eudaq_build_eudet: true
 
 eudaq_build_caribou: false

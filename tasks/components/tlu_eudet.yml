@@ -1,0 +1,4 @@
+---
+- name: Install libUSB
+  apt:
+    name: libusb-dev
