@@ -16,6 +16,11 @@ eudaq_build_stdevent_monitor: true
 # Additional features / producers
 
 eudaq_build_tlu_aida: true
+eudaq_tlu_aida:
+    ipbus_repository: "https://github.com/ipbus/ipbus-software.git"
+    ipbus_branch: v2.7.5
+    ipbus_build_folder: /tmp/ipbus-software
+    ipbus_install_folder: /usr
 
 eudaq_build_tlu_eudet: true
 eudaq_tlu_eudet:

@@ -1,1 +1,27 @@
 ---
+# CACTUS/IPbus dependencies
+- name: Install CACTUS/IPBus build dependencies
+  apt:
+    name: ['make', 'erlang', 'g++', 'libboost-all-dev', 'libpugixml-dev', 'python-all-dev']
+
+- name: Clone CACTUS/IPBus repository
+  git:
+    repo: "{{ eudaq_tlu_aida.ipbus_repository }}"
+    version: "{{ eudaq_tlu_aida.ipbus_branch }}"
+    accept_hostkey: yes
+    depth: 1
+    force: yes
+    dest: "{{ eudaq_tlu_aida.ipbus_build_folder }}"
+
+- name: Build CACTUS/IPBus
+  make:
+    chdir: "{{ eudaq_tlu_aida.ipbus_build_folder }}"
+    params:
+      NUM_THREADS: "{{ ansible_processor_vcpus|default(ansible_processor_count) }}"
+
+- name: Install CACTUS/IPBus
+  make:
+    chdir: "{{ eudaq_tlu_aida.ipbus_build_folder }}"
+    target: install
+    params:
+      NUM_THREADS: "{{ ansible_processor_vcpus|default(ansible_processor_count) }}"
