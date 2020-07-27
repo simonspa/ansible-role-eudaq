@@ -1,11 +1,14 @@
 ---
 # tasks file for eudaq
 
-- include_tasks: components.yml
-
 - name: Make sure EUDAQ2 build dependencies are present
   apt:
     name: ['git', 'g++', 'cmake']
+
+- name: Delete old build folder
+  file:
+    path: "{{ eudaq_build_folder }}"
+    state: absent
 
 - name: Clone EUDAQ2 repository
   git:
@@ -16,15 +19,12 @@
     force: yes
     dest: "{{ eudaq_build_folder }}"
 
-- name: Delete old build folder
-  file:
-    path: "{{ eudaq_build_folder }}/build"
-    state: absent
-
 - name: Create build folder
   file:
     path: "{{ eudaq_build_folder }}/build"
     state: directory
+
+- include_tasks: components.yml
 
 - name: Configure EUDAQ2 build
   shell: "{{ item }}"
