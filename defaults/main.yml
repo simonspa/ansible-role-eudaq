@@ -6,3 +6,11 @@ eudaq_branch: v2.4.3
 
 eudaq_build_folder: /tmp/eudaq2
 eudaq_install_folder: /usr
+
+# Additional features / producers
+
+eudaq_build_tlu: true
+eudaq_build_eudet: true
+
+eudaq_build_caribou: false
+eudaq_build_pistage: false

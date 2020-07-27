@@ -1,6 +1,8 @@
 ---
 # tasks file for eudaq
 
+- include_tasks: components.yml
+
 - name: Make sure EUDAQ2 build dependencies are present
   apt:
     name: ['git', 'g++', 'cmake']
@@ -29,7 +31,7 @@
   args:
     chdir: "{{ eudaq_build_folder }}/build"
   with_items:
-    - cmake -DEUDAQ_INSTALL_PREFIX="{{ eudaq_install_folder }}" ..
+    - cmake -DEUDAQ_INSTALL_PREFIX="{{ eudaq_install_folder }}" {{ eudaq_cmake_options }} ..
 
 - name: Build EUDAQ2
   shell: "{{ item }}"
