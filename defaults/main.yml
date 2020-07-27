@@ -16,7 +16,10 @@ eudaq_build_stdevent_monitor: true
 # Additional features / producers
 
 eudaq_build_tlu_aida: true
+
 eudaq_build_tlu_eudet: true
+eudaq_tlu_eudet:
+    zestsc1_path: "/afs/desy.de/group/telescopes/tlu/ZestSC1/linux"
 
 eudaq_build_eudet: true
 

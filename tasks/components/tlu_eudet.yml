@@ -2,3 +2,22 @@
 - name: Install libUSB
   apt:
     name: libusb-dev
+
+# Let's see if AFS is mounted on the target and copy files directly:
+- name: Check for remote AFS mount
+  stat: path="{{ eudaq_tlu_eudet.zestsc1_path }}"
+  register: afs
+
+- name: Copy ZestSC1 driver from AFS remotely
+  synchronize:
+    src: "{{ eudaq_tlu_eudet.zestsc1_path }}"
+    dest: "{{ eudaq_build_folder }}/user/tlu/extern"
+  delegate_to: "{{ inventory_hostname }}"
+  when: afs.stat.isdir is defined and afs.stat.isdir
+
+# Well, this failed - let's copy them from locally mounted AFS then:
+- name: Copy ZestSC1 driver from AFS locally
+  synchronize:
+    src: "{{ eudaq_tlu_eudet.zestsc1_path }}"
+    dest: "{{ eudaq_build_folder }}/user/tlu/extern"
+  when: afs.stat.isdir is not defined or not afs.stat.isdir
