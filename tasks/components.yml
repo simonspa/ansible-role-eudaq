@@ -1,0 +1,33 @@
+---
+
+- name: Component TLU
+  set_fact:
+    eudaq_cmake_options: "{{ eudaq_cmake_options|default() }} -DUSER_TLU_BUILD=ON"
+  when:
+    eudaq_build_tlu
+
+- name: Component EUDET
+  set_fact:
+    eudaq_cmake_options: "{{ eudaq_cmake_options|default() }} -DUSER_EUDET_BUILD=ON"
+  when:
+    eudaq_build_eudet
+
+- include_tasks: components/caribou.yml
+  when:
+    eudaq_build_caribou
+
+- name: Component Caribou
+  set_fact:
+    eudaq_cmake_options: "{{ eudaq_cmake_options|default() }} -DUSER_CARIBOU_BUILD=ON"
+  when:
+    eudaq_build_caribou
+
+- include_tasks: components/pistage.yml
+  when:
+    eudaq_build_pistage
+
+- name: Component PIStage
+  set_fact:
+    eudaq_cmake_options: "{{ eudaq_cmake_options|default() }} -DUSER_PISTAGE_BUILD=ON"
+  when:
+    eudaq_build_pistage
