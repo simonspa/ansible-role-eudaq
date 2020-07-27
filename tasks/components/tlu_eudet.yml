@@ -1,23 +1,45 @@
 ---
+# USB development library
 - name: Install libUSB
   apt:
     name: libusb-dev
 
+- name: Create directory for external dependencies
+  file:
+    path: "{{ eudaq_build_folder }}/user/tlu/extern"
+    state: directory
+
 # Let's see if AFS is mounted on the target and copy files directly:
 - name: Check for remote AFS mount
-  stat: path="{{ eudaq_tlu_eudet.zestsc1_path }}"
+  stat: path="{{ eudaq_tlu_eudet.base_path }}"
   register: afs
 
+# ZestSC1 driver for USB communcation module
 - name: Copy ZestSC1 driver from AFS remotely
   synchronize:
-    src: "{{ eudaq_tlu_eudet.zestsc1_path }}"
-    dest: "{{ eudaq_build_folder }}/user/tlu/extern"
+    src: "{{ eudaq_tlu_eudet.zestsc1_path }}/"
+    dest: "{{ eudaq_build_folder }}/user/tlu/extern/ZestSC1"
+    copy_links: yes
   delegate_to: "{{ inventory_hostname }}"
   when: afs.stat.isdir is defined and afs.stat.isdir
 
-# Well, this failed - let's copy them from locally mounted AFS then:
 - name: Copy ZestSC1 driver from AFS locally
   synchronize:
-    src: "{{ eudaq_tlu_eudet.zestsc1_path }}"
-    dest: "{{ eudaq_build_folder }}/user/tlu/extern"
+    src: "{{ eudaq_tlu_eudet.zestsc1_path }}/"
+    dest: "{{ eudaq_build_folder }}/user/tlu/extern/ZestSC1"
+    copy_links: yes
+  when: afs.stat.isdir is not defined or not afs.stat.isdir
+
+# TLU Firmware
+- name: Copy TLU firmware from AFS remotely
+  synchronize:
+    src: "{{ eudaq_tlu_eudet.tlufirmware_path }}/"
+    dest: "{{ eudaq_build_folder }}/user/tlu/extern/tlufirmware"
+  delegate_to: "{{ inventory_hostname }}"
+  when: afs.stat.isdir is defined and afs.stat.isdir
+
+- name: Copy TLU firmware from AFS locally
+  synchronize:
+    src: "{{ eudaq_tlu_eudet.tlufirmware_path }}/"
+    dest: "{{ eudaq_build_folder }}/user/tlu/extern/tlufirmware"
   when: afs.stat.isdir is not defined or not afs.stat.isdir

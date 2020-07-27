@@ -9,7 +9,7 @@ eudaq_install_folder: /usr
 
 # EUDAQ2 features:
 
-eudaq_build_executables: false
+eudaq_build_executables: true
 eudaq_build_gui: true
 eudaq_build_stdevent_monitor: true
 
@@ -19,7 +19,9 @@ eudaq_build_tlu_aida: true
 
 eudaq_build_tlu_eudet: true
 eudaq_tlu_eudet:
+    base_path: "/afs/desy.de/group/telescopes/tlu"
     zestsc1_path: "/afs/desy.de/group/telescopes/tlu/ZestSC1/linux"
+    tlufirmware_path: "/afs/desy.de/group/telescopes/tlu/tlufirmware"
 
 eudaq_build_eudet: true
 
