@@ -31,7 +31,7 @@
   args:
     chdir: "{{ eudaq_build_folder }}/build"
   with_items:
-    - cmake -DEUDAQ_INSTALL_PREFIX="{{ eudaq_install_folder }}" {{ eudaq_cmake_options }} ..
+    - cmake -DEUDAQ_INSTALL_PREFIX="{{ eudaq_install_folder }}" -DEUDAQ_BUILD_EXECUTABLE={{ 'ON' if eudaq_build_executables else 'OFF'}} -DEUDAQ_BUILD_GUI={{ 'ON' if eudaq_build_gui else 'OFF'}} -DEUDAQ_BUILD_STDEVENT_MONITOR={{ 'ON' if eudaq_build_stdevent_monitor else 'OFF'}} {{ eudaq_cmake_options }} ..
 
 - name: Build EUDAQ2
   shell: "{{ item }}"

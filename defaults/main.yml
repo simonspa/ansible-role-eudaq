@@ -7,6 +7,12 @@ eudaq_branch: v2.4.3
 eudaq_build_folder: /tmp/eudaq2
 eudaq_install_folder: /usr
 
+# EUDAQ2 features:
+
+eudaq_build_executables: false
+eudaq_build_gui: true
+eudaq_build_stdevent_monitor: true
+
 # Additional features / producers
 
 eudaq_build_tlu: true
