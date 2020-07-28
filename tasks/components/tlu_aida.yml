@@ -1,10 +1,10 @@
 ---
-# CACTUS/IPbus dependencies
-- name: Install CACTUS/IPBus build dependencies
+# Cactus/IPbus dependencies
+- name: Install Cactus/IPBus build dependencies
   apt:
     name: ['make', 'erlang', 'g++', 'libboost-all-dev', 'libpugixml-dev', 'python-all-dev']
 
-- name: Clone CACTUS/IPBus repository
+- name: Clone Cactus/IPBus repository
   git:
     repo: "{{ eudaq_tlu_aida.ipbus_repository }}"
     version: "{{ eudaq_tlu_aida.ipbus_branch }}"
@@ -13,16 +13,38 @@
     force: yes
     dest: "{{ eudaq_tlu_aida.ipbus_build_folder }}"
 
-- name: Build CACTUS/IPBus
+- name: Build Cactus/IPBus
   make:
     chdir: "{{ eudaq_tlu_aida.ipbus_build_folder }}"
     params:
       NUM_THREADS: "{{ ansible_processor_vcpus|default(ansible_processor_count) }}"
 
-- name: Install CACTUS/IPBus
+- name: Install Cactus/IPBus
   make:
     chdir: "{{ eudaq_tlu_aida.ipbus_build_folder }}"
     target: install
     params:
       NUM_THREADS: "{{ ansible_processor_vcpus|default(ansible_processor_count) }}"
       prefix: "{{ eudaq_tlu_aida.ipbus_install_folder }}"
+
+- name: Copy Cactus Controlhub service environment file
+  copy:
+    content: |
+      CACTUSROOT=
+      HOME=$CACTUSROOT
+    dest: "{{ eudaq_tlu_aida.controlhub_environment_file }}"
+
+- name: Configure systemd service for Cactus Controlhub
+  template:
+    src: "templates/controlhub.service.j2"
+    dest: "/lib/systemd/system/controlhub.service"
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Start systemd service for Cactus Controlhub
+  systemd:
+    daemon_reload: yes
+    name: controlhub
+    state: started
+    enabled: yes

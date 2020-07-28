@@ -1,0 +1,18 @@
+[Unit]
+
+Description=IPbus ControlHub server daemon (mediates simultaneous IPbus-based hardware access from multiple control applications)
+Documentation=http://ipbus.web.cern.ch/ipbus/doc/index.html
+Requires=network.target
+
+
+[Service]
+Type=forking
+PIDFile=/var/run/controlhub.pid
+EnvironmentFile={{ eudaq_tlu_aida.controlhub_environment_file }}
+ExecStart={{ eudaq_tlu_aida.ipbus_install_folder }}/bin/controlhub_start
+ExecStartPost=/bin/sh -c '{{ eudaq_tlu_aida.ipbus_install_folder }}/lib/controlhub/bin/controlhub getpid > /var/run/controlhub.pid'
+ExecStop={{ eudaq_tlu_aida.ipbus_install_folder }}/bin/controlhub_stop
+
+
+[Install]
+WantedBy=default.target runlevel2.target runlevel5.target
