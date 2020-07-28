@@ -4,6 +4,11 @@
   apt:
     name: ['make', 'erlang', 'g++', 'libboost-all-dev', 'libpugixml-dev', 'python-all-dev']
 
+- name: Delete old Cactus build folder
+  file:
+    path: "{{ eudaq_tlu_aida.ipbus_build_folder }}"
+    state: absent
+
 - name: Clone Cactus/IPBus repository
   git:
     repo: "{{ eudaq_tlu_aida.ipbus_repository }}"
@@ -14,10 +19,9 @@
     dest: "{{ eudaq_tlu_aida.ipbus_build_folder }}"
 
 - name: Build Cactus/IPBus
-  make:
+  shell: "make -j{{ ansible_processor_vcpus|default(ansible_processor_count) }}"
+  args:
     chdir: "{{ eudaq_tlu_aida.ipbus_build_folder }}"
-    params:
-      NUM_THREADS: "{{ ansible_processor_vcpus|default(ansible_processor_count) }}"
 
 - name: Install Cactus/IPBus
   make:
