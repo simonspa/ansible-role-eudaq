@@ -27,7 +27,7 @@
 
 - name: Component Caribou
   set_fact:
-    eudaq_cmake_options: "{{ eudaq_cmake_options|default() }} -DUSER_CARIBOU_BUILD=ON"
+    eudaq_cmake_options: "{{ eudaq_cmake_options|default() }} -DUSER_CARIBOU_BUILD=ON -DCMAKE_PREFIX_PATH={{ peary_install_folder }}/share/cmake/Modules/"
   when:
     eudaq_build_caribou
 
