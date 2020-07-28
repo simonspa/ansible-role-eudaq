@@ -15,8 +15,8 @@ eudaq_build_stdevent_monitor: true
 
 # Additional features / producers
 
+eudaq_build_tlu_aida: true
 eudaq_tlu_aida:
-    build: true
     ipbus_repository: "https://github.com/ipbus/ipbus-software.git"
     ipbus_branch: v2.7.5
     ipbus_build_folder: /tmp/ipbus-software
@@ -24,8 +24,8 @@ eudaq_tlu_aida:
     ipbus_install_folder: /usr/local
     controlhub_environment_file: /usr/local/share/controlhub
 
+eudaq_build_tlu_eudet: true
 eudaq_tlu_eudet:
-    build: true
     base_path: "/afs/desy.de/group/telescopes/tlu"
     zestsc1_path: "/afs/desy.de/group/telescopes/tlu/ZestSC1/linux"
     tlufirmware_path: "/afs/desy.de/group/telescopes/tlu/tlufirmware"
