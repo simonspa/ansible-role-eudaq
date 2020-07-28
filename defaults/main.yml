@@ -5,7 +5,7 @@ eudaq_repository: "https://github.com/eudaq/eudaq.git"
 eudaq_branch: v2.4.3
 
 eudaq_build_folder: /tmp/eudaq2
-eudaq_install_folder: /usr
+eudaq_install_folder: /usr/local
 
 # EUDAQ2 features:
 
@@ -20,7 +20,8 @@ eudaq_tlu_aida:
     ipbus_repository: "https://github.com/ipbus/ipbus-software.git"
     ipbus_branch: v2.7.5
     ipbus_build_folder: /tmp/ipbus-software
-    ipbus_install_folder: /usr
+    # if you change this, you need to make sure to update LD_LIBRARY_PATH to include cactus!
+    ipbus_install_folder: /usr/local
 
 eudaq_build_tlu_eudet: true
 eudaq_tlu_eudet:

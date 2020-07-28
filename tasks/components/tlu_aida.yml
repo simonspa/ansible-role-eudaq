@@ -25,3 +25,4 @@
     target: install
     params:
       NUM_THREADS: "{{ ansible_processor_vcpus|default(ansible_processor_count) }}"
+      prefix: "{{ eudaq_tlu_aida.ipbus_install_folder }}"
