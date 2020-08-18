@@ -12,7 +12,7 @@ The following role variables can be used to configure this role and select addit
 
 ### EUDAQ2 source and target
 
-* `eudaq_repository: "https://github.com/eudaq/eudaq.git"` - Git repository to fetch EUDAQ2 code from. Replace with your own repostory if you have additional code which is not contained in the main EUDAQ2 repository.
+* `eudaq_repository: "https://github.com/eudaq/eudaq.git"` - Git repository to fetch EUDAQ2 code from. Replace with your own repository if you have additional code which is not contained in the main EUDAQ2 repository.
 * `eudaq_branch: v2.4.3` - EUDAQ2 version or Git branch to be deployed. The configured branch or tag has to exist in the selected repository.
 * `eudaq_build_folder: /tmp/eudaq2` - Temporary folder for building EUDAQ2 on the target machine.
 * `eudaq_install_folder: /usr/local` - Target installation folder of EUDAQ2 on the target machine.
@@ -47,13 +47,11 @@ The following role variables can be used to configure this role and select addit
 * `eudaq_build_pistage: false` - Enable support for the PI rotation and translation stages.
 
 
-Dependencies
-------------
+## Dependencies
 
 Depending on the selected configuration of the EUDAQ2 build, additional roles might be required such as [`ansible-role-peary`](https://github.com/simonspa/ansible-role-peary) or [`ansible-role-root`]().
 
-Example Playbook
-----------------
+## Example Playbook
 
 The following is an example playbook for installing EUDAQ2 and enabling AIDA-TLU support:
 
@@ -67,12 +65,10 @@ The following is an example playbook for installing EUDAQ2 and enabling AIDA-TLU
       - role: ansible-role-eudaq
 ```
 
-License
--------
+## License
 
 BSD
 
-Author Information
-------------------
+## Author Information
 
 Simon Spannagel (<simon.spannagel@desy.de>) DESY
