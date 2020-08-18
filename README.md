@@ -67,7 +67,7 @@ The following is an example playbook for installing EUDAQ2 and enabling AIDA-TLU
 
 ## License
 
-BSD
+MIT
 
 ## Author Information
 
